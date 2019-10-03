@@ -110,8 +110,9 @@ func Download(config config.Config ) error {
 }
 
 func processZip(fileName string, buf *bytes.Buffer, subject string, a parsemail.Attachment, config config.Config) {
-
 	tmpFolder := "./tmp"
+	os.MkdirAll(tmpFolder, os.ModePerm)
+	defer os.RemoveAll(tmpFolder)
 	tmpZipPath := fmt.Sprintf("%s/%s", tmpFolder, fileName)
 	err := ioutil.WriteFile(tmpZipPath, buf.Bytes(), 0644)
 	if err != nil {
