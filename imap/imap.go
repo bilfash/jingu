@@ -50,9 +50,9 @@ func Download(config config.Config ) error {
 	}
 
 	criteria := imap.NewSearchCriteria()
-	criteria.Text = config.Subjects()
 	location, _ := tz.LoadLocation("Asia/Jakarta")
 	criteria.Since = time.Now().In(location)
+	criteria.Text = config.Subjects()
 
 	seqNums, err := c.Search(criteria)
 	if err != nil {
