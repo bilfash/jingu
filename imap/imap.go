@@ -1,6 +1,7 @@
 package imap
 
 import (
+	"4d63.com/tz"
 	"bytes"
 	"fmt"
 	"github.com/bilfash/jingu/config"
@@ -50,6 +51,8 @@ func Download(config config.Config ) error {
 
 	criteria := imap.NewSearchCriteria()
 	criteria.Text = config.Subjects()
+	location, _ := tz.LoadLocation("Asia/Jakarta")
+	criteria.Since = time.Now().In(location)
 
 	seqNums, err := c.Search(criteria)
 	if err != nil {
